@@ -19,7 +19,9 @@ assets/img/favicon-180.png Favicon 180 px / apple-touch-icon
 1. **Hero** — logo, headline, propuesta de valor y CTAs hacia servicios y contacto.
 2. **Servicios** — asesoramiento visual integral, marketing y campañas, redes sociales,
    diseño y desarrollo web, y reconocimiento de marca.
-3. **Contacto** — Instagram, email y WhatsApp.
+3. **Planes** — Starter, Premium (destacado) y Gold, en tarjetas de color saturado.
+   No llevan precio: el CTA de cada uno lleva a la sección de contacto.
+4. **Contacto** — Instagram, email y WhatsApp.
 
 ## Sistema de diseño
 
@@ -43,6 +45,10 @@ Escala fluida con `clamp()`, de `--fs-xs` a `--fs-hero`.
 
 **Movimiento** — duraciones (`--dur-1/2/3`) y curvas (`--ease`, `--ease-soft`) compartidas
 por todos los componentes, para que hovers y transiciones se sientan iguales en toda la página.
+
+**Botones** — un solo componente `.btn` con el relleno que sube desde abajo (`.btn::before`).
+Las variantes (`--primary`, `--ghost`, `--light`, `--plan`) solo redefinen colores y sombras
+vía custom properties, así que todos los botones comparten la misma textura de hover.
 
 ## Detalles de implementación
 

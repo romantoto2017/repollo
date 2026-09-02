@@ -273,6 +273,14 @@ button { font: inherit; color: inherit; }
   --btn-hover-fg: var(--ink);
   --btn-shadow-hover: inset 0 0 0 2px var(--teal), var(--sh-teal);
 }
+.btn--plan {
+  --btn-bg: var(--ink);
+  --btn-fg: var(--mint);
+  --btn-shadow: 0 10px 26px -12px rgba(18,48,46,.7);
+  --btn-hover-bg: #fff;
+  --btn-hover-fg: var(--ink);
+  --btn-shadow-hover: 0 18px 38px -14px rgba(18,48,46,.75);
+}
 .btn--light {
   --btn-bg: var(--mint);
   --btn-fg: var(--ink);
@@ -690,7 +698,98 @@ button { font: inherit; color: inherit; }
 .card--opal   { --accent: var(--teal); --accent-soft: var(--teal-050); }
 .card--coral  { --accent: var(--coral); --accent-soft: var(--coral-050); }
 
-/* ---------- 9. CONTACTO ---------- */
+/* ---------- 9. PLANES ---------- */
+#planes { background: var(--paper); }
+
+.plans { display: grid; gap: var(--sp-5); }
+
+.plan {
+  /* Fondos saturados con texto tinta: brillan y a la vez pasan contraste AA */
+  --p1: var(--teal);
+  --p2: var(--teal-600);
+  --glow: rgba(54,201,198,.55);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  padding: var(--sp-9) var(--sp-6) var(--sp-6);
+  border-radius: var(--r-lg);
+  background: linear-gradient(155deg, var(--p1) 0%, var(--p2) 100%);
+  color: var(--ink);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--dur-3) var(--ease),
+              box-shadow var(--dur-3) var(--ease);
+}
+/* Halo suave para dar volumen sin ensuciar el color */
+.plan::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -40%;
+  right: -30%;
+  width: 95%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 45%, transparent 70%);
+}
+.plan:hover, .plan:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 52px -18px var(--glow), var(--sh-3);
+}
+
+.plan--starter { --p1: #3BE0DC; --p2: #21B8C4; --glow: rgba(33,184,196,.6); }
+.plan--premium { --p1: #FFA07F; --p2: #FF6F61; --glow: rgba(255,111,97,.6); }
+.plan--gold    { --p1: #FFD23F; --p2: #FFA62B; --glow: rgba(255,166,43,.6); }
+
+.plan--premium { box-shadow: var(--sh-2), 0 0 0 3px var(--ink); }
+.plan--premium:hover, .plan--premium:focus-within {
+  box-shadow: 0 26px 52px -18px var(--glow), var(--sh-3), 0 0 0 3px var(--ink);
+}
+
+.plan__badge {
+  position: absolute;
+  top: var(--sp-5);
+  right: var(--sp-5);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--mint);
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.plan__head { display: grid; gap: var(--sp-2); }
+.plan__head h3 {
+  font-size: var(--fs-2xl);
+  letter-spacing: -0.04em;
+}
+.plan__tagline { font-size: var(--fs-sm); color: rgba(18,48,46,.78); max-width: 26ch; }
+
+.plan__features {
+  display: grid;
+  gap: var(--sp-3);
+  padding-top: var(--sp-5);
+  border-top: 2px solid rgba(18,48,46,.16);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.plan__features li { display: flex; align-items: flex-start; gap: var(--sp-3); }
+.plan__check {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: none;
+  margin-top: 0.1rem;
+  fill: #fff;
+  stroke: var(--ink);
+}
+
+/* El CTA queda abajo aunque las tarjetas tengan distinta cantidad de items */
+.plan__cta { margin-top: auto; width: 100%; }
+
+/* ---------- 10. CONTACTO ---------- */
 #contacto {
   position: relative;
   background: var(--ink);
@@ -812,7 +911,7 @@ button { font: inherit; color: inherit; }
 .contact__aside p  { color: rgba(241,251,244,.72); font-size: var(--fs-sm); }
 .contact__aside img { width: 4.5rem; }
 
-/* ---------- 10. FOOTER ---------- */
+/* ---------- 11. FOOTER ---------- */
 .footer {
   padding-block: var(--sp-7);
   background: var(--ink);
@@ -830,7 +929,7 @@ button { font: inherit; color: inherit; }
 .footer a:hover { color: var(--teal); }
 .footer__note { font-style: italic; }
 
-/* ---------- 11. MOTION ---------- */
+/* ---------- 12. MOTION ---------- */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-14px); }
@@ -864,7 +963,7 @@ button { font: inherit; color: inherit; }
   .marquee { transform: none; }
 }
 
-/* ---------- 12. BREAKPOINTS ---------- */
+/* ---------- 13. BREAKPOINTS ---------- */
 @media (min-width: 40rem) {
   .marquee span { font-size: var(--fs-lg); }
   .hero__actions { width: auto; }
@@ -883,6 +982,7 @@ button { font: inherit; color: inherit; }
   .hero__inner { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: var(--sp-9); }
 
   .cards { grid-template-columns: repeat(3, 1fr); }
+  .plans { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
   .card--feature { grid-column: span 3; }
   .card { padding: var(--sp-6) var(--sp-6) var(--sp-7); }
   .card--feature { padding: var(--sp-8); }

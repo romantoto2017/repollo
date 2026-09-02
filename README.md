@@ -9,8 +9,9 @@ HTML, CSS y JavaScript sin dependencias ni build step: se abre `index.html` y fu
 index.html                 Página completa (3 secciones + nav + footer)
 assets/css/styles.css      Sistema de diseño y estilos
 assets/js/main.js          Nav móvil, scroll suave, scrollspy y animaciones de entrada
-assets/img/kydos-mark.svg  Isotipo (K + estrella)
-assets/img/favicon.svg     Favicon
+assets/img/kydos-logo.png  Isotipo original (K + estrella), con fondo transparente
+assets/img/favicon-32.png  Favicon 32 px
+assets/img/favicon-180.png Favicon 180 px / apple-touch-icon
 ```
 
 ## Secciones
@@ -56,9 +57,13 @@ por todos los componentes, para que hovers y transiciones se sientan iguales en 
 
 ## Cambiar el logo
 
-`assets/img/kydos-mark.svg` es una reconstrucción vectorial del isotipo.
-Para usar el archivo original, reemplazá ese SVG manteniendo el mismo nombre —
-lo referencian el nav, el hero, la sección de contacto y los metadatos.
+`assets/img/kydos-logo.png` es el isotipo original con el fondo blanco convertido
+en transparente, para que apoye sobre cualquier color. Lo referencian el nav, el
+hero, la sección de contacto y los metadatos.
+
+Los favicons (`favicon-32.png` y `favicon-180.png`) se derivan del mismo archivo,
+con un recorte más ajustado para que la K llene el ícono de la pestaña. Si cambiás
+el logo, regeneralos recortando el margen transparente y exportando a 32 y 180 px.
 
 ## Publicar
 

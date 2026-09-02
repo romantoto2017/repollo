@@ -27,8 +27,8 @@
   --ink-2:      #35514E;
   --ink-3:      #55736F;
   --mint:       #F1FBF4;
-  --paper:      #FBFCF9;
-  --line:       #D8E2DB;
+  --paper:      #E6EBE0;
+  --line:       #CCD9CE;
 
   /* Typography */
   --font-display: "Space Grotesk", "Outfit", ui-sans-serif, system-ui, sans-serif;
@@ -294,7 +294,7 @@ button { font: inherit; color: inherit; }
               backdrop-filter var(--dur-2);
 }
 .nav.is-stuck {
-  background: rgba(251,252,249,.82);
+  background: rgba(230,235,224,.85);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   box-shadow: 0 1px 0 var(--line), 0 8px 24px -18px rgba(18,48,46,.4);
@@ -422,9 +422,9 @@ button { font: inherit; color: inherit; }
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(60% 55% at 82% 8%,  rgba(54,201,198,.30), transparent 62%),
-    radial-gradient(52% 48% at 6% 26%,  rgba(244,241,187,.62), transparent 66%),
-    radial-gradient(70% 60% at 50% 108%, rgba(155,193,188,.42), transparent 68%),
+    radial-gradient(62% 58% at 84% 6%,  rgba(54,201,198,.55), transparent 64%),
+    radial-gradient(46% 44% at 4% 24%,  rgba(244,241,187,.70), transparent 68%),
+    radial-gradient(78% 62% at 44% 106%, rgba(54,201,198,.30), transparent 70%),
     var(--paper);
 }
 .hero__grid {
@@ -491,8 +491,8 @@ button { font: inherit; color: inherit; }
   place-items: center;
   padding: var(--sp-7);
   border-radius: var(--r-xl);
-  background: linear-gradient(150deg, var(--mint), #fff 55%, var(--teal-050));
-  box-shadow: var(--sh-3), inset 0 0 0 1px rgba(255,255,255,.7);
+  background: linear-gradient(150deg, #fff, var(--teal-050) 100%);
+  box-shadow: var(--sh-3), inset 0 0 0 2px rgba(54,201,198,.35);
   animation: float 7s var(--ease-soft) infinite;
 }
 .hero__card img { width: 80%; height: auto; }
@@ -517,9 +517,9 @@ button { font: inherit; color: inherit; }
   width: 8.5rem;
   height: 8.5rem;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--butter);
-  box-shadow: var(--sh-2);
+  background: var(--teal);
+  color: var(--ink);
+  box-shadow: var(--sh-teal), var(--sh-2);
 }
 .badge-star__ring {
   position: absolute;
@@ -536,14 +536,14 @@ button { font: inherit; color: inherit; }
   fill: currentColor;
   text-transform: uppercase;
 }
-.badge-star__star { width: 1.85rem; color: var(--coral); }
+.badge-star__star { width: 1.85rem; color: var(--ink); }
 
 /* Marquee */
 .marquee {
   margin-top: var(--sp-9);
   padding-block: var(--sp-4);
-  background: var(--ink);
-  color: var(--mint);
+  background: var(--teal);
+  color: var(--ink);
   overflow: hidden;
   transform: rotate(-1.4deg) scale(1.06);
 }
@@ -566,12 +566,12 @@ button { font: inherit; color: inherit; }
 }
 .marquee span::after {
   content: "★";
-  color: var(--coral);
+  color: var(--mint);
   font-size: 0.85em;
 }
 
 /* ---------- 8. SERVICIOS ---------- */
-#servicios { background: linear-gradient(180deg, var(--paper) 0%, var(--alabaster) 100%); }
+#servicios { background: linear-gradient(180deg, var(--paper) 0%, #D5E8E6 100%); }
 
 .cards {
   display: grid;
@@ -658,7 +658,7 @@ button { font: inherit; color: inherit; }
 .tag {
   padding: 0.3rem 0.7rem;
   border-radius: var(--r-pill);
-  background: var(--alabaster);
+  background: var(--teal-050);
   color: var(--ink-2);
   font-size: var(--fs-xs);
   font-weight: 500;
@@ -670,10 +670,12 @@ button { font: inherit; color: inherit; }
 .card--feature {
   --accent: var(--coral);
   --accent-soft: var(--coral-050);
-  background: linear-gradient(155deg, var(--ink) 0%, #1B403D 100%);
+  background: var(--ink);
   color: var(--mint);
   box-shadow: var(--sh-2);
 }
+/* Sin brillo: ni degradado de fondo ni resplandor que siga al puntero */
+.card--feature::before { content: none; }
 .card--feature h3 { font-size: var(--fs-2xl); }
 .card--feature p  { color: rgba(241,251,244,.78); font-size: var(--fs-base); max-width: 46ch; }
 .card--feature .card__num { color: rgba(241,251,244,.5); }
@@ -685,7 +687,7 @@ button { font: inherit; color: inherit; }
 .card--butter { --accent: var(--butter-600); --accent-soft: #FCFBEC; }
 .card--butter .card__icon { color: #8A8330; }
 .card--butter:hover .card__icon { background: #8A8330; }
-.card--opal   { --accent: var(--opal-600); --accent-soft: #EEF5F4; }
+.card--opal   { --accent: var(--teal); --accent-soft: var(--teal-050); }
 .card--coral  { --accent: var(--coral); --accent-soft: var(--coral-050); }
 
 /* ---------- 9. CONTACTO ---------- */
@@ -700,8 +702,8 @@ button { font: inherit; color: inherit; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(45% 45% at 12% 0%,  rgba(54,201,198,.28), transparent 70%),
-    radial-gradient(45% 50% at 90% 100%, rgba(237,106,90,.26), transparent 70%);
+    radial-gradient(52% 50% at 10% 0%,  rgba(54,201,198,.42), transparent 72%),
+    radial-gradient(42% 48% at 92% 100%, rgba(237,106,90,.24), transparent 70%);
   pointer-events: none;
 }
 #contacto .shell { position: relative; }

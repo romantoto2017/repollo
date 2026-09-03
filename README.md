@@ -76,12 +76,29 @@ el logo, regeneralos recortando el margen transparente y exportando a 32 y 180 p
 Es un sitio estático: sirve cualquier hosting (GitHub Pages, Netlify, Vercel, Cloudflare Pages).
 No hay que compilar nada; se sube la carpeta tal cual.
 
-## Skill de diseño (ui-ux-pro-max)
+## Skills de diseño
 
-`.claude/skills/ui-ux-pro-max/` es una copia de la skill
-[ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) v2.13.0
-(MIT): bases de datos consultables de estilos, paletas, tipografías, guías de UX
-y charts para 22 stacks.
+`.claude/skills/` contiene las 7 skills del repositorio
+[ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+v2.13.0 (MIT, licencia en `.claude/skills/LICENSE`):
+
+| Skill | Para qué |
+|---|---|
+| `ui-ux-pro-max` | Estilos, paletas, tipografías, guías de UX y charts para 22 stacks |
+| `design` | Logos, identidad corporativa, banners, iconos, imágenes para redes |
+| `design-system` | Tokens en tres capas (primitive→semantic→component) y specs de componentes |
+| `brand` | Voz de marca, identidad visual, consistencia, guías de estilo |
+| `ui-styling` | shadcn/ui, Tailwind, layouts accesibles, dark mode |
+| `banner-design` | Banners para redes, ads, web y print |
+| `slides` | Presentaciones HTML con Chart.js |
+
+Se cargan solas al iniciar la sesión y se activan cuando la tarea lo pide.
+Los scripts corren con Python 3 y Node, sin dependencias externas.
+
+Las funciones de **generación de imágenes** (logos, iconos, mockups) piden
+claves de API que este repo no incluye: `GEMINI_API_KEY`, `ATLASCLOUD_API_KEY`,
+`MUAPI_API_KEY`, `GOOGLE_FONTS_API_KEY`. Todo lo demás —las bases de datos
+consultables, los tokens, los validadores— funciona sin claves.
 
 Está como skill de proyecto y no instalada como plugin porque las sesiones de
 Claude Code en la web corren con `SKIP_PLUGIN_MARKETPLACE=true` y no cargan

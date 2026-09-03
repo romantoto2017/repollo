@@ -104,6 +104,23 @@ de `using-superpowers` al arrancar, y esa skill ya se carga sola como skill de
 proyecto. Agregarlo implicaría ejecutar un script en cada sesión de cualquiera
 que abra el repo, así que se dejó afuera por defecto.
 
+### Exploración y auditoría (claude-mem)
+
+5 skills de [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)
+(Apache 2.0, licencia en `.claude/skills/LICENSE-claude-mem`): `design-is`
+(auditoría contra los diez principios de Dieter Rams), `learn-codebase`,
+`pathfinder`, `what-the` y `babysit`.
+
+Son 5 de las 19 del plugin. Las otras 14 quedaron afuera a propósito: 12
+dependen de la base `~/.claude-mem/claude-mem.db`, que vive en el home de un
+contenedor efímero y no sobrevive entre sesiones — cargarían bien y devolverían
+vacío siempre. Las otras 2 (`make-plan`, `do`) duplican `writing-plans` y
+`executing-plans` de superpowers. Las referencias a esas dos dentro de las 5
+instaladas se redirigieron a los equivalentes de superpowers.
+
+La memoria persistente entre sesiones, que es lo que claude-mem resuelve, la
+cubre `CLAUDE.md`: se commitea al repo y se carga sola en cada sesión.
+
 Se cargan solas al iniciar la sesión y se activan cuando la tarea lo pide.
 Los scripts corren con Python 3 y Node, sin dependencias externas.
 

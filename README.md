@@ -92,6 +92,18 @@ v2.13.0 (MIT, licencia en `.claude/skills/LICENSE`):
 | `banner-design` | Banners para redes, ads, web y print |
 | `slides` | Presentaciones HTML con Chart.js |
 
+### Metodología de desarrollo (superpowers)
+
+Las 14 skills de [obra/superpowers](https://github.com/obra/superpowers) (MIT,
+licencia en `.claude/skills/LICENSE-superpowers`): brainstorming, escritura y
+ejecución de planes, TDD, debugging sistemático, code review, git worktrees y
+verificación antes de dar algo por terminado.
+
+No se incluyó su hook de `SessionStart`. Lo único que hace es inyectar el texto
+de `using-superpowers` al arrancar, y esa skill ya se carga sola como skill de
+proyecto. Agregarlo implicaría ejecutar un script en cada sesión de cualquiera
+que abra el repo, así que se dejó afuera por defecto.
+
 Se cargan solas al iniciar la sesión y se activan cuando la tarea lo pide.
 Los scripts corren con Python 3 y Node, sin dependencias externas.
 

@@ -75,3 +75,21 @@ el logo, regeneralos recortando el margen transparente y exportando a 32 y 180 p
 
 Es un sitio estático: sirve cualquier hosting (GitHub Pages, Netlify, Vercel, Cloudflare Pages).
 No hay que compilar nada; se sube la carpeta tal cual.
+
+## Skill de diseño (ui-ux-pro-max)
+
+`.claude/skills/ui-ux-pro-max/` es una copia de la skill
+[ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) v2.13.0
+(MIT): bases de datos consultables de estilos, paletas, tipografías, guías de UX
+y charts para 22 stacks.
+
+Está como skill de proyecto y no instalada como plugin porque las sesiones de
+Claude Code en la web corren con `SKIP_PLUGIN_MARKETPLACE=true` y no cargan
+plugins, mientras que las skills a nivel proyecto sí se cargan desde el repo.
+Los detalles y cómo actualizarla están al pie de su `SKILL.md`.
+
+Consulta directa, sin dependencias más allá de Python 3:
+
+```bash
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "creative agency" --domain color
+```

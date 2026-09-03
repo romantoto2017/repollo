@@ -1,0 +1,7 @@
+# Bytecode de Python: se regenera solo y es específico de cada versión
+__pycache__/
+*.py[cod]
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

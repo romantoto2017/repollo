@@ -11,8 +11,9 @@ HTML, CSS y JS sin dependencias ni build step. Se abre `index.html` y anda.
 | `assets/css/styles.css` | Sistema de diseño (sección `1. TOKENS`) y todos los estilos |
 | `assets/js/main.js` | Nav móvil, scroll suave, scrollspy, revelados |
 | `404.html` | Página de error, mismo sistema visual |
-| `assets/img/kydos-mark-silver.png` | Isotipo plateado, fondo transparente |
-| `assets/img/kydos-word-silver.png` | Wordmark plateado, fondo transparente |
+| `assets/img/kydos-mark-silver@2x.{webp,png}` | Isotipo plateado, el que se sirve |
+| `assets/img/kydos-word-silver@2x.{webp,png}` | Wordmark plateado, el que se sirve |
+| `assets/img/*-silver.{webp,png}` | Versiones al tamaño original, de respaldo |
 | `assets/img/source/` | Las capturas originales de las que salen ambos |
 
 ## Reglas del proyecto
@@ -51,7 +52,10 @@ gradiente hay que muestrear píxeles reales de una captura.
 `75rem`) solo agregan columnas. Probar siempre desde 320 px.
 
 **Respetar `prefers-reduced-motion`.** Ya está implementado, incluido el
-apagado del tilt 3D. No romperlo.
+apagado del tilt 3D de las tarjetas. No romperlo.
+
+**El hero no se mueve con el cursor y no lleva anillos.** Se quitaron a pedido:
+la escena es una tarjeta de vidrio con el logo, y nada más. No reintroducirlos.
 
 ## Cómo verificar cambios
 
@@ -72,10 +76,16 @@ consola, y los hovers renderizando de verdad.
 
 ## Decisiones tomadas (no volver a discutirlas sin motivo)
 
-- **El logo plateado es un PNG chico.** Las fuentes son capturas de 131×72 y
-  252×91 px, guardadas en `assets/img/source/`. Por eso el hero se apoya en
-  tipografía cromada y no en un logo gigante: ampliarlo se pixela. Si aparecen
-  los originales en alta, reemplazar los dos PNG manteniendo el nombre.
+- **El logo plateado nace de capturas chicas** (131×72 y 252×91 px, en
+  `assets/img/source/`). Los `@2x` son un reescalado por etapas con Lanczos más
+  un realce leve: eso da bordes más limpios en pantallas retina, pero **no
+  inventa detalle que no existe**. Comparadas lado a lado, la versión ampliada y
+  el original estirado se parecen mucho. Para un salto real de calidad hacen
+  falta los archivos originales.
+- **Las imágenes se sirven en WebP con fallback PNG** vía `<picture>`. El WebP
+  del isotipo pesa 48 KB contra 179 del PNG; con gradientes la diferencia es
+  enorme. `picture { display: contents }` mantiene el `img` como hijo directo
+  del flex/grid.
 - **El fondo transparente se sacó con relleno por inundación desde los bordes**,
   no con recorte por color: el fondo `#040113` y las zonas oscuras del cromado
   son casi iguales, y un keying por color se come partes del logo.

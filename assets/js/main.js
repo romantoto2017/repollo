@@ -84,22 +84,6 @@
     else { img.addEventListener('load', done); img.addEventListener('error', done); }
   });
 
-  /* ---- 3D: la escena del hero sigue al puntero ---- */
-  var scene = document.getElementById('scene');
-  if (scene && finePointer && !reduce) {
-    var host = scene.parentElement, raf = null, tx = 0, ty = 0;
-    host.addEventListener('pointermove', function (e) {
-      var r = host.getBoundingClientRect();
-      tx = ((e.clientY - r.top) / r.height - .5) * -16;
-      ty = ((e.clientX - r.left) / r.width - .5) * 22;
-      if (!raf) raf = requestAnimationFrame(function () {
-        scene.style.transform = 'rotateX(' + tx.toFixed(2) + 'deg) rotateY(' + ty.toFixed(2) + 'deg)';
-        raf = null;
-      });
-    });
-    host.addEventListener('pointerleave', function () { scene.style.transform = ''; });
-  }
-
   /* ---- 3D: inclinación y brillo especular en las tarjetas ---- */
   if (finePointer && !reduce) {
     document.querySelectorAll('.card, .plan').forEach(function (card) {

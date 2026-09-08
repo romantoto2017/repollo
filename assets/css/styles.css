@@ -134,6 +134,7 @@ h1,h2,h3,h4 {
 p { margin: 0; text-wrap: pretty; }
 ul { margin: 0; padding: 0; list-style: none; }
 img,svg { display: block; max-width: 100%; }
+picture { display: contents; }
 a { color: inherit; text-decoration: none; transition: color var(--t-hover) var(--ease-soft); }
 button { font: inherit; color: inherit; }
 
@@ -352,34 +353,18 @@ button { font: inherit; color: inherit; }
 .scene { position: relative; display: grid; place-items: center; perspective: 1000px; padding: var(--sp-5); }
 .scene__stack {
   position: relative; width: min(100%, 24rem); aspect-ratio: 1;
-  transform-style: preserve-3d;
-  transition: transform var(--t-slow) var(--ease);
-  will-change: transform;
 }
-/* Anillos cromados en 3D real */
-.ring {
-  position: absolute; inset: 8%;
-  border-radius: 50%;
-  border: 1px solid var(--border-str);
-  transform-style: preserve-3d;
-}
-.ring--1 { transform: rotateX(72deg); border-color: rgba(165,233,255,.30); }
-.ring--2 { transform: rotateY(72deg); border-color: rgba(227,229,215,.22); }
-.ring--3 { transform: rotateX(38deg) rotateY(38deg); border-color: rgba(227,229,215,.14); }
-.ring--glow { inset: 20%; border: 1px solid rgba(92,200,245,.4); box-shadow: var(--glow); transform: rotateX(78deg); }
-
 .scene__card {
-  position: absolute; inset: 18%;
+  position: absolute; inset: 6%;
   display: grid; place-items: center;
-  padding: var(--sp-6);
+  padding: var(--sp-7);
   border-radius: var(--r-xl);
   background: linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
   border: 1px solid var(--border-str);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,.18);
-  transform: translateZ(40px);
 }
-.scene__card img { width: 74%; height: auto; filter: drop-shadow(0 6px 20px rgba(0,0,0,.6)); }
+.scene__card img { width: 78%; height: auto; filter: drop-shadow(0 6px 20px rgba(0,0,0,.6)); }
 
 /* En modo claro el cromado necesita fondo oscuro: la escena y los paneles que
    sostienen el logo se mantienen oscuros. Es un recurso deliberado, no un parche. */
@@ -395,10 +380,6 @@ button { font: inherit; color: inherit; }
     border-color: rgba(227,229,215,.22);
     box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,.14);
   }
-  .ring--1 { border-color: rgba(42,159,214,.35); }
-  .ring--2 { border-color: rgba(4,1,19,.20); }
-  .ring--3 { border-color: rgba(4,1,19,.12); }
-  .ring--glow { border-color: rgba(42,159,214,.35); }
   .brand img, .footer__brand img, .contact__aside img {
     padding: .3rem .5rem;
     box-shadow: 0 1px 3px rgba(4,1,19,.2);
@@ -628,7 +609,6 @@ button { font: inherit; color: inherit; }
   .reveal { opacity: 1; transform: none; }
   .media img { opacity: 1; }
   .media::after { display: none; }
-  .scene__stack { transform: none !important; }
 }
 
 /* ---------- 14. BREAKPOINTS ---------- */
@@ -647,6 +627,6 @@ button { font: inherit; color: inherit; }
   .card--feature { grid-column: span 3; }
   .plans { grid-template-columns: repeat(3, 1fr); }
   .contact__grid { grid-template-columns: 1.3fr .7fr; align-items: start; }
-  .footer__grid { grid-template-columns: 1.6fr 1fr 1fr 1.2fr; }
+  .footer__grid { grid-template-columns: 1.7fr 1fr 1fr; }
 }
 @media (min-width: 75rem) { .card--feature { grid-column: span 2; } }

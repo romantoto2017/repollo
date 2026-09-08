@@ -11,11 +11,13 @@ HTML, CSS y JS sin dependencias ni build step. Se abre `index.html` y anda.
 | `assets/css/styles.css` | Sistema de diseño (sección `1. TOKENS`) y todos los estilos |
 | `assets/js/main.js` | Nav móvil, scroll suave, scrollspy, revelados |
 | `404.html` | Página de error, mismo sistema visual |
-| `assets/img/kydos-mark-silver@2x.{webp,png}` | Isotipo plateado, el que se sirve |
+| `assets/img/kydos-spin.webp` | Logo 3D girando en loop, el del hero |
+| `assets/img/kydos-spin-static.webp` | Frame fijo, para `prefers-reduced-motion` |
+| `assets/img/kydos-mark-silver@2x.{webp,png}` | Isotipo plateado, respaldo |
 | `assets/img/kydos-word-silver@2x.{webp,png}` | Wordmark plateado, el que se sirve |
 | `assets/img/*-silver.{webp,png}` | Versiones al tamaño original, de respaldo |
 | `assets/img/kydos-mark-beige.png` | Isotipo beige, del que salen los favicons |
-| `assets/img/favicon-{16,32,180}.png` | Favicons, generados del verde |
+| `assets/img/favicon-{16,32,180}.png` | Favicons, generados del isotipo beige |
 | `assets/img/source/` | Las capturas originales de todos ellos |
 
 ## Reglas del proyecto
@@ -55,6 +57,15 @@ gradiente hay que muestrear píxeles reales de una captura.
 
 **Respetar `prefers-reduced-motion`.** Ya está implementado, incluido el
 apagado del tilt 3D de las tarjetas. No romperlo.
+
+**El hero lleva el logo 3D girando en loop** (`kydos-spin.webp`), servido con
+`<picture>`: la primera `<source>` tiene `media="(prefers-reduced-motion: reduce)"`
+y entrega el frame fijo. La animación llena la tarjeta de vidrio de borde a
+borde (`padding: 0` + `overflow: hidden` + `border-radius: inherit`), y la
+tarjeta usa `aspect-ratio: 800 / 636`, la proporción real del recorte. **No
+rellenar la animación para hacerla cuadrada:** el relleno plano choca con el
+viñeteado del original y deja una costura visible; y recortarla a cuadrado
+corta el logo, que en algunos frames de la rotación llega a los bordes.
 
 **El hero no se mueve con el cursor y no lleva anillos.** Se quitaron a pedido:
 la escena es una tarjeta de vidrio con el logo, y nada más. No reintroducirlos.
@@ -109,6 +120,13 @@ consola, y los hovers renderizando de verdad.
 - **El fondo transparente se sacó con relleno por inundación desde los bordes**,
   no con recorte por color: el fondo `#040113` y las zonas oscuras del cromado
   son casi iguales, y un keying por color se come partes del logo.
+- **El GIF original tenía marca de agua y bordes.** `Wink` arriba a la
+  izquierda, más 42 px de banda blanca arriba y abajo. El recorte
+  `(0, 122, 800, 758)` saca las tres cosas: 42 de borde más 80 para la marca.
+  Verificado midiendo el mínimo sobre los 200 frames, no a ojo sobre uno solo.
+- **El GIF pesaba 8,9 MB; el WebP animado pesa 463 KB.** 20 veces menos, con
+  100 frames a 66 ms en vez de 200 a 33. El original queda en
+  `assets/img/source/kydos-spin-original.gif`.
 - **Los planes no llevan precio.** No fueron especificados. Los CTA van a contacto.
 - **El fondo es `#040113`,** tomado del archivo del logo, no elegido a ojo.
 - **La estética anterior (turquesa/coral/beige) quedó descartada** al adoptar el

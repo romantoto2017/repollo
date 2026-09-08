@@ -352,19 +352,23 @@ button { font: inherit; color: inherit; }
 /* Escena 3D del hero */
 .scene { position: relative; display: grid; place-items: center; perspective: 1000px; padding: var(--sp-5); }
 .scene__stack {
-  position: relative; width: min(100%, 24rem); aspect-ratio: 1;
+  position: relative; width: min(100%, 26rem); aspect-ratio: 800 / 636;
 }
 .scene__card {
   position: absolute; inset: 6%;
   display: grid; place-items: center;
-  padding: var(--sp-7);
+  padding: 0;
+  overflow: hidden;
   border-radius: var(--r-xl);
   background: linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
   border: 1px solid var(--border-str);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,.18);
 }
-.scene__card img { width: 78%; height: auto; filter: drop-shadow(0 6px 20px rgba(0,0,0,.6)); }
+.scene__card img {
+  width: 100%; height: auto;
+  border-radius: inherit;
+}
 
 /* En modo claro el cromado necesita fondo oscuro: la escena y los paneles que
    sostienen el logo se mantienen oscuros. Es un recurso deliberado, no un parche. */
@@ -539,7 +543,7 @@ button { font: inherit; color: inherit; }
 }
 .contact__aside h3 { font-size: var(--fs-xl); }
 .contact__aside p { color: var(--text-muted); font-size: var(--fs-sm); }
-.contact__aside img { width: 5.5rem; background: var(--chip-bg); border-radius: var(--r-sm); }
+.contact__aside img { width: 11rem; height: auto; background: var(--chip-bg); border-radius: var(--r-sm); }
 
 /* ---------- 11. FOOTER ---------- */
 .footer { border-top: 1px solid var(--border); background: var(--bg-elev); padding-block: var(--sp-9) var(--sp-6); }

@@ -82,6 +82,13 @@ consola, y los hovers renderizando de verdad.
   inventa detalle que no existe**. Comparadas lado a lado, la versión ampliada y
   el original estirado se parecen mucho. Para un salto real de calidad hacen
   falta los archivos originales.
+- **El favicon de 16 y 32 px es la estrella sola, no la marca completa.** Se
+  probaron cuatro variantes renderizadas a 16 px reales: la marca entera es una
+  mancha ilegible a ese tamaño porque mide 640×374 y, encajada en un cuadrado,
+  queda una franja de ~16×9 px. La estrella es casi cuadrada, llena el ícono y
+  se reconoce. El de 180 px sí lleva la marca completa, que ahí hay espacio.
+  Antes de cambiarlo, renderizarlo a 16 px y mirarlo: a ese tamaño la intuición
+  falla.
 - **Las imágenes se sirven en WebP con fallback PNG** vía `<picture>`. El WebP
   del isotipo pesa 48 KB contra 179 del PNG; con gradientes la diferencia es
   enorme. `picture { display: contents }` mantiene el `img` como hijo directo

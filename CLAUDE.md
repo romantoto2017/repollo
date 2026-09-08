@@ -14,7 +14,7 @@ HTML, CSS y JS sin dependencias ni build step. Se abre `index.html` y anda.
 | `assets/img/kydos-mark-silver@2x.{webp,png}` | Isotipo plateado, el que se sirve |
 | `assets/img/kydos-word-silver@2x.{webp,png}` | Wordmark plateado, el que se sirve |
 | `assets/img/*-silver.{webp,png}` | Versiones al tamaño original, de respaldo |
-| `assets/img/kydos-mark-green.png` | Isotipo verde, del que salen los favicons |
+| `assets/img/kydos-mark-beige.png` | Isotipo beige, del que salen los favicons |
 | `assets/img/favicon-{16,32,180}.png` | Favicons, generados del verde |
 | `assets/img/source/` | Las capturas originales de todos ellos |
 
@@ -84,16 +84,24 @@ consola, y los hovers renderizando de verdad.
   inventa detalle que no existe**. Comparadas lado a lado, la versión ampliada y
   el original estirado se parecen mucho. Para un salto real de calidad hacen
   falta los archivos originales.
-- **El favicon es el isotipo verde, no el plateado.** Fuente:
-  `assets/img/source/isotipo-verde-original.png` (339×204, verde `#90C09E` con
-  contorno negro), extraída a `assets/img/kydos-mark-green.png`. Es una decisión
-  del dueño de la marca y además funciona mejor: una forma plana con contorno
-  sobrevive a 16 px, y el cromado no —a ese tamaño quedaba una mancha—. Fondo
-  transparente, verificado sobre pestaña clara y oscura de Chrome.
-  Antes de cambiarlo, renderizarlo a 16 px y mirarlo: a ese tamaño la intuición
-  falla.
-- **El sitio sigue usando el logo plateado; solo el favicon es verde.** Es una
-  inconsistencia deliberada y pedida, no un descuido.
+- **El favicon es el isotipo en beige `#E6EBE0` sobre el fondo de marca
+  `#040113`.** La forma sale del vectorial del PDF de identidad
+  (`assets/img/source/isotipo-vectorial-pdf.png`), que tiene alfa limpio, y el
+  beige es el de la propia identidad. Va sobre fondo oscuro y no transparente
+  porque el beige es muy claro: transparente desaparecería en las pestañas
+  claras de Chrome.
+- **El PDF de identidad trae texto de plantilla sin reemplazar.** El isotipo
+  vectorial es en realidad un lockup: la marca más las palabras "NOVA STAR"
+  debajo (filas 227-247 del archivo original). Al generar el favicon hay que
+  recortar SOLO el bloque de la marca (filas ~55-215). Se detectó porque el
+  favicon de 180 px lo mostraba; a 16 px habría pasado desapercibido y se
+  habría publicado con el nombre de otra marca.
+- **`Logo Tienda Ecológica Minimalista Beige.png` no se puede usar.** Está en
+  `assets/img/source/logo-beige-blanco-sobre-blanco.png`. El trazo es blanco
+  puro sobre fondo blanco puro, visible solo por una sombra desplazada. Un
+  relleno por inundación devuelve un único componente y 0 % encerrado: no hay
+  forma geométrica de separar marca y fondo. La sombra tampoco sirve de
+  silueta, porque un drop shadow solo aparece de un lado del trazo.
 - **Las imágenes se sirven en WebP con fallback PNG** vía `<picture>`. El WebP
   del isotipo pesa 48 KB contra 179 del PNG; con gradientes la diferencia es
   enorme. `picture { display: contents }` mantiene el `img` como hijo directo

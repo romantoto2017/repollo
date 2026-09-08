@@ -60,12 +60,23 @@ apagado del tilt 3D de las tarjetas. No romperlo.
 
 **El hero lleva el logo 3D girando en loop** (`kydos-spin.webp`), servido con
 `<picture>`: la primera `<source>` tiene `media="(prefers-reduced-motion: reduce)"`
-y entrega el frame fijo. La animación llena la tarjeta de vidrio de borde a
-borde (`padding: 0` + `overflow: hidden` + `border-radius: inherit`), y la
-tarjeta usa `aspect-ratio: 800 / 636`, la proporción real del recorte. **No
-rellenar la animación para hacerla cuadrada:** el relleno plano choca con el
-viñeteado del original y deja una costura visible; y recortarla a cuadrado
-corta el logo, que en algunos frames de la rotación llega a los bordes.
+y entrega el frame fijo.
+
+**Va sin marco, con `mix-blend-mode: screen`.** El fondo de la animación es
+negro; screen lo vuelve transparente y deja solo el cromado flotando sobre el
+fondo de la página. **Solo funciona en oscuro:** sobre fondo claro screen borra
+el logo por completo (se midió: rango dinámico 23 sobre 255). Por eso en
+`prefers-color-scheme: light` el blend vuelve a `normal` y la animación conserva
+su fondo oscuro como panel, con esquinas redondeadas y sombra.
+
+**El recorte es `(0, 122, 800, 649)` y está centrado en el logo.** El borde
+blanco del original arranca en la fila **754**, no 758, y el logo va de la fila
+151 a la 620: recortar hasta 758 dejaba 4 filas claras que se veían como una
+franja, y recortar sin centrar dejaba 27 px de margen arriba contra 131 abajo.
+La proporción resultante, `aspect-ratio: 800 / 527`, es la del recorte: **no
+rellenar para hacerlo cuadrado** (el relleno plano choca con el viñeteado y deja
+costura) ni recortar a cuadrado (corta el logo, que en algunos frames llega a
+los bordes laterales).
 
 **El hero no se mueve con el cursor y no lleva anillos.** Se quitaron a pedido:
 la escena es una tarjeta de vidrio con el logo, y nada más. No reintroducirlos.
@@ -124,7 +135,11 @@ consola, y los hovers renderizando de verdad.
   izquierda, más 42 px de banda blanca arriba y abajo. El recorte
   `(0, 122, 800, 758)` saca las tres cosas: 42 de borde más 80 para la marca.
   Verificado midiendo el mínimo sobre los 200 frames, no a ojo sobre uno solo.
-- **El GIF pesaba 8,9 MB; el WebP animado pesa 463 KB.** 20 veces menos, con
+- **El titular del hero está limitado por su columna, no por el viewport.**
+  `--fs-hero` topa en `4rem`: a 88 px la palabra "reconocimiento" medía 768 px
+  contra una columna de 607 y se montaba sobre la animación. Al agrandar la
+  animación hay que volver a medir esa palabra, no estimarla.
+- **El GIF pesaba 8,9 MB; el WebP animado pesa 544 KB.** 20 veces menos, con
   100 frames a 66 ms en vez de 200 a 33. El original queda en
   `assets/img/source/kydos-spin-original.gif`.
 - **Los planes no llevan precio.** No fueron especificados. Los CTA van a contacto.

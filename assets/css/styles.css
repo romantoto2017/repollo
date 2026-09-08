@@ -37,7 +37,7 @@
   --fs-xl:   clamp(1.375rem, 1vw + 1.1rem, 1.75rem);
   --fs-2xl:  clamp(1.75rem, 2vw + 1.2rem, 2.5rem);
   --fs-3xl:  clamp(2.1rem, 3.2vw + 1.1rem, 3.5rem);
-  --fs-hero: clamp(min(2.6rem, 11vw), 6vw + 0.4rem, 5.5rem);
+  --fs-hero: clamp(min(2.6rem, 11vw), 4.6vw + 0.4rem, 4rem);
 
   /* Espaciado, base 4px */
   --sp-1:.25rem; --sp-2:.5rem;  --sp-3:.75rem; --sp-4:1rem;
@@ -350,43 +350,31 @@ button { font: inherit; color: inherit; }
 .hero__actions .btn { flex: 1 1 13rem; }
 
 /* Escena 3D del hero */
-.scene { position: relative; display: grid; place-items: center; perspective: 1000px; padding: var(--sp-5); }
+.scene { position: relative; display: grid; place-items: center; }
 .scene__stack {
-  position: relative; width: min(100%, 26rem); aspect-ratio: 800 / 636;
+  position: relative; width: min(100%, 34rem); aspect-ratio: 800 / 527;
 }
 .scene__card {
-  position: absolute; inset: 6%;
+  /* Sin marco: la animación se apoya directamente sobre el fondo de la página.
+     Su propio fondo es casi negro y coincide con --void-900. */
+  position: absolute; inset: 0;
   display: grid; place-items: center;
-  padding: 0;
-  overflow: hidden;
-  border-radius: var(--r-xl);
-  background: linear-gradient(155deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
-  border: 1px solid var(--border-str);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,.18);
 }
 .scene__card img {
   width: 100%; height: auto;
-  border-radius: inherit;
+  /* El fondo de la animación es negro: 'screen' lo vuelve transparente y deja
+     solo el cromado, sin rectángulo recortado contra el fondo de la página.
+     Solo sirve sobre fondo oscuro: en claro borraría el logo. */
+  mix-blend-mode: screen;
 }
-
-/* En modo claro el cromado necesita fondo oscuro: la escena y los paneles que
-   sostienen el logo se mantienen oscuros. Es un recurso deliberado, no un parche. */
 @media (prefers-color-scheme: light) {
-  .hero__bg {
-    background:
-      radial-gradient(50% 44% at 78% 12%, rgba(42,159,214,.10), transparent 68%),
-      radial-gradient(46% 40% at 12% 78%, rgba(120,110,220,.08), transparent 70%),
-      var(--bg);
-  }
-  .scene__card {
-    background: linear-gradient(155deg, var(--void-700), var(--void-900));
-    border-color: rgba(227,229,215,.22);
-    box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,.14);
-  }
-  .brand img, .footer__brand img, .contact__aside img {
-    padding: .3rem .5rem;
-    box-shadow: 0 1px 3px rgba(4,1,19,.2);
+  /* Sobre fondo claro el cromado no se lee, así que la animación conserva su
+     propio fondo oscuro y se presenta como panel. Mismo criterio que el resto
+     de los soportes del logo en modo claro. */
+  .scene__card img {
+    mix-blend-mode: normal;
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-3);
   }
 }
 
@@ -626,7 +614,7 @@ button { font: inherit; color: inherit; }
 @media (min-width: 60rem) {
   .nav__links, .nav__cta { display: inline-flex; }
   .nav__toggle, .drawer { display: none; }
-  .hero__inner { grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); }
+  .hero__inner { grid-template-columns: minmax(0,1.08fr) minmax(0,.92fr); }
   .cards { grid-template-columns: repeat(3, 1fr); }
   .card--feature { grid-column: span 3; }
   .plans { grid-template-columns: repeat(3, 1fr); }

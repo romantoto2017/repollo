@@ -9,8 +9,11 @@ HTML, CSS y JavaScript sin dependencias ni build step: se abre `index.html` y fu
 index.html                 Página completa (3 secciones + nav + footer)
 assets/css/styles.css      Sistema de diseño y estilos
 assets/js/main.js          Nav móvil, scroll suave, scrollspy y animaciones de entrada
-assets/img/kydos-logo.png  Isotipo original (K + estrella), con fondo transparente
-assets/img/favicon-32.png  Favicon 32 px
+404.html                   Página de error
+assets/img/kydos-mark-silver.png  Isotipo plateado, fondo transparente
+assets/img/kydos-word-silver.png  Wordmark plateado, fondo transparente
+assets/img/source/         Capturas originales de ambos logos
+assets/img/favicon-32.png  Favicon 32 px (isotipo plateado)
 assets/img/favicon-180.png Favicon 180 px / apple-touch-icon
 ```
 
@@ -25,30 +28,25 @@ assets/img/favicon-180.png Favicon 180 px / apple-touch-icon
 
 ## Sistema de diseño
 
-Todos los valores viven como custom properties en `:root` (sección `1. TOKENS` de `styles.css`).
-
-**Paleta**
+Tokens en tres capas dentro de `:root` (`styles.css`): primitivas → semánticas →
+componentes. La paleta se muestreó del propio archivo del logo.
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--teal` | `#36C9C6` | Color de marca principal (viene del logo) |
-| `--coral` | `#ED6A5A` | Acento y llamadas a la acción |
-| `--butter` | `#F4F1BB` | Subrayados y fondos suaves |
-| `--opal` | `#9BC1BC` | Detalles y fondos |
-| `--alabaster` | `#E6EBE0` | Fondos de sección |
-| `--ink` | `#12302E` | Texto y secciones oscuras |
+| `--void-900` | `#040113` | Fondo. Es el negro sobre el que vive el isotipo |
+| `--chrome-200` | `#E3E5D7` | Plata principal del cromado |
+| `--chrome-400` | `#969BA8` | Sombra media del metal |
+| `--halo-400` | `#5CC8F5` | Acento frío: el brillo especular |
 
-**Tipografía** — Space Grotesk para títulos, Outfit para texto (Google Fonts).
-Escala fluida con `clamp()`, de `--fs-xs` a `--fs-hero`.
+**Tipografía** — DM Sans, con `display=swap` para que el texto no desaparezca
+mientras carga. Escala fluida con `clamp()`.
 
-**Espaciado** — escala de 4 px (`--sp-1` … `--sp-12`) más `--section-y` y `--gutter` fluidos.
+**Modo claro y oscuro** vía `prefers-color-scheme`. Oscuro es el modo nativo de
+la marca; en claro los paneles que sostienen el logo se mantienen oscuros,
+porque el cromado no se lee sobre fondo claro.
 
-**Movimiento** — duraciones (`--dur-1/2/3`) y curvas (`--ease`, `--ease-soft`) compartidas
-por todos los componentes, para que hovers y transiciones se sientan iguales en toda la página.
-
-**Botones** — un solo componente `.btn` con el relleno que sube desde abajo (`.btn::before`).
-Las variantes (`--primary`, `--ghost`, `--light`, `--plan`) solo redefinen colores y sombras
-vía custom properties, así que todos los botones comparten la misma textura de hover.
+**Movimiento** — `--t-hover: 200ms` en todo hover, `--t-slow: 620ms` en
+revelados y transiciones largas.
 
 ## Detalles de implementación
 

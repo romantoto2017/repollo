@@ -10,29 +10,48 @@ HTML, CSS y JS sin dependencias ni build step. Se abre `index.html` y anda.
 | `index.html` | Página completa: nav, hero, servicios, planes, contacto, footer |
 | `assets/css/styles.css` | Sistema de diseño (sección `1. TOKENS`) y todos los estilos |
 | `assets/js/main.js` | Nav móvil, scroll suave, scrollspy, revelados |
-| `assets/img/kydos-logo.png` | Isotipo original, fondo transparente |
+| `404.html` | Página de error, mismo sistema visual |
+| `assets/img/kydos-mark-silver.png` | Isotipo plateado, fondo transparente |
+| `assets/img/kydos-word-silver.png` | Wordmark plateado, fondo transparente |
+| `assets/img/source/` | Las capturas originales de las que salen ambos |
 
 ## Reglas del proyecto
 
-**Los colores salen de los tokens en `:root`, nunca hardcodeados.** Paleta de
-marca: turquesa `#36C9C6` y coral `#ED6A5A` como principales, beige alabastro
-`#E6EBE0` de fondo, amarillo `#F4F1BB` y ópalo `#9BC1BC` en detalles. Tinta
-`#12302E` para texto y secciones oscuras.
+**Los colores salen de los tokens en `:root`, nunca hardcodeados.** El sistema
+tiene tres capas: primitivas (`--void-*`, `--chrome-*`, `--halo-*`), semánticas
+(`--bg`, `--text`, `--surface`, `--border`, `--accent`) y componentes. Tocar
+siempre la capa semántica, no la primitiva.
+
+**La paleta sale del propio logo.** Fondo `#040113` (el negro azulado sobre el
+que vive el isotipo plateado) y rampa cromada `#FFFFFF → #E3E5D7 → #6E7385`
+muestreada del archivo. Acento frío `#5CC8F5`, que es el brillo especular del
+metal. No inventar colores fuera de esa lógica.
+
+**El cromado necesita fondo oscuro para leerse.** Por eso el sitio es oscuro por
+defecto y, en `prefers-color-scheme: light`, los paneles que sostienen el logo
+(`.scene__card`, `.brand img`, `.footer__brand img`) se mantienen oscuros. Es
+deliberado: no "arreglarlo" aclarándolos.
+
+**El texto cromado usa `.chrome`** (degradado + `background-clip: text`). Tiene
+fallback con `@supports` para navegadores sin soporte; no quitarlo.
 
 **Todos los botones son el mismo componente `.btn`.** La textura de hover —el
 relleno que sube desde abajo— vive en `.btn::before`. Las variantes
-(`--primary`, `--ghost`, `--light`, `--plan`) solo redefinen colores vía custom
-properties. Nunca escribir un botón nuevo desde cero: agregar una variante.
+(`--primary`, `--ghost`, `--plan`) solo redefinen colores. Nunca escribir un
+botón nuevo desde cero: agregar una variante.
 
-**Contraste mínimo 4.5:1 en texto.** En las tarjetas de planes los fondos son
-saturados y el texto va en tinta, no en blanco: es lo que permite que los
-colores sean brillantes sin perder legibilidad. Verificar antes de cambiar un
-fondo.
+**Contraste mínimo 4.5:1 en texto, verificado en los dos modos.** Ojo con una
+trampa: `getComputedStyle().backgroundColor` devuelve transparente cuando el
+fondo es un `linear-gradient`, y eso da falsas fallas. Para elementos sobre
+gradiente hay que muestrear píxeles reales de una captura.
+
+**Hover a 200ms** (`--t-hover`). Es el ritmo de toda la página.
 
 **Mobile-first.** Una columna es la base; los breakpoints (`40rem`, `60rem`,
 `75rem`) solo agregan columnas. Probar siempre desde 320 px.
 
-**Respetar `prefers-reduced-motion`.** Ya está implementado; no romperlo.
+**Respetar `prefers-reduced-motion`.** Ya está implementado, incluido el
+apagado del tilt 3D. No romperlo.
 
 ## Cómo verificar cambios
 
@@ -53,22 +72,25 @@ consola, y los hovers renderizando de verdad.
 
 ## Decisiones tomadas (no volver a discutirlas sin motivo)
 
-- **El logo es un PNG, no un SVG.** El original venía sin canal alfa; se le sacó
-  el fondo con un relleno por inundación desde los bordes. Un recorte por color
-  no sirve: el relleno menta interior de la K (`#F9FFF4`) está a 11 de blanco y
-  se borra.
+- **El logo plateado es un PNG chico.** Las fuentes son capturas de 131×72 y
+  252×91 px, guardadas en `assets/img/source/`. Por eso el hero se apoya en
+  tipografía cromada y no en un logo gigante: ampliarlo se pixela. Si aparecen
+  los originales en alta, reemplazar los dos PNG manteniendo el nombre.
+- **El fondo transparente se sacó con relleno por inundación desde los bordes**,
+  no con recorte por color: el fondo `#040113` y las zonas oscuras del cromado
+  son casi iguales, y un keying por color se come partes del logo.
 - **Los planes no llevan precio.** No fueron especificados. Los CTA van a contacto.
-- **El fondo es `#E6EBE0`,** no un blanco inventado. Salió de la paleta de marca.
-- **La tarjeta de "Asesoramiento visual integral" va sin brillo:** fondo plano,
-  sin degradado y sin el resplandor radial que siguen las otras tarjetas.
+- **El fondo es `#040113`,** tomado del archivo del logo, no elegido a ojo.
+- **La estética anterior (turquesa/coral/beige) quedó descartada** al adoptar el
+  logo plateado. No volver a mezclarlas.
 
 ## Pendientes
 
 - Precios de los planes (Starter / Premium / Gold).
 - Revisar los textos de servicios y planes: son un punto de partida, escritos en
   tono rioplatense, no validados con el cliente.
-- En la raíz hay un PDF de identidad de marca y dos capturas que subió el dueño
-  del repo y todavía no se usaron.
+- En la raíz hay un PDF de identidad de marca que todavía no se usó.
+- Conseguir los logos plateados en alta resolución (hoy son capturas chicas).
 - La rama por defecto del repo sigue siendo la rama de trabajo, no `main`.
 
 ## Skills disponibles

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Esta página se la ganó nadie · Kydos</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#040113">
+<link rel="icon" href="assets/img/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+  .lost { min-height: 100vh; display: grid; place-items: center; text-align: center; position: relative; overflow: hidden; }
+  .lost__inner { display: grid; gap: var(--sp-5); justify-items: center; padding: var(--sp-8) var(--gutter); max-width: 46rem; }
+  .lost__code { font-size: clamp(6rem, 22vw, 13rem); font-weight: 700; line-height: .88; letter-spacing: -.06em; }
+  .lost h1 { font-size: var(--fs-2xl); }
+  .lost p { color: var(--text-muted); max-width: 44ch; }
+  .lost__mark { width: 5rem; height: auto; margin-bottom: var(--sp-2); animation: drift 5s var(--ease-soft) infinite; }
+  @keyframes drift { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-12px) rotate(4deg)} }
+  .lost__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; margin-top: var(--sp-3); }
+  @media (prefers-reduced-motion: reduce) { .lost__mark { animation: none; } }
+</style>
+</head>
+<body>
+<main class="lost">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="lost__inner">
+    <picture><source type="image/webp" srcset="assets/img/kydos-mark-silver@2x.webp"><img class="lost__mark" src="assets/img/kydos-mark-silver@2x.png" alt="" width="640" height="374"></picture>
+    <p class="lost__code chrome">404</p>
+    <h1><span class="chrome">Esta página no se ganó su lugar.</span></h1>
+    <p>
+      <em>Kydos</em> es el reconocimiento que se gana por mérito propio.
+      Esta URL, evidentemente, no lo consiguió: no existe.
+    </p>
+    <p>Volvé al inicio, que ahí sí hay cosas que se lo ganaron.</p>
+    <div class="lost__actions">
+      <a class="btn btn--primary" href="/">Volver al inicio</a>
+      <a class="btn btn--ghost" href="/#contacto">Escribinos</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

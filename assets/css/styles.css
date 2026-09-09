@@ -37,7 +37,7 @@
   --fs-xl:   clamp(1.375rem, 1vw + 1.1rem, 1.75rem);
   --fs-2xl:  clamp(1.75rem, 2vw + 1.2rem, 2.5rem);
   --fs-3xl:  clamp(2.1rem, 3.2vw + 1.1rem, 3.5rem);
-  --fs-hero: clamp(min(2.6rem, 11vw), 4.6vw + 0.4rem, 4rem);
+  --fs-hero: clamp(min(2.6rem, 11vw), 4.2vw + 0.4rem, 3.6rem);
 
   /* Espaciado, base 4px */
   --sp-1:.25rem; --sp-2:.5rem;  --sp-3:.75rem; --sp-4:1rem;
@@ -78,30 +78,12 @@
   --glow:     0 0 40px -8px rgba(92,200,245,.45);
 
   --chip-bg: transparent;   /* el logo ya trae su fondo oscuro */
-  color-scheme: dark;
+  /* Oscuro siempre: la marca vive sobre negro y el cromado no se lee en claro. */
+  color-scheme: dark only;
 }
 
 /* Modo claro: el cromado necesita fondo oscuro para leerse, así que el logo
    pasa a vivir dentro de un chip oscuro y el resto se aclara. */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg:         #EFF0EC;
-    --bg-elev:    #FFFFFF;
-    --surface:    rgba(4,1,19,.04);
-    --surface-2:  rgba(4,1,19,.07);
-    --border:     rgba(4,1,19,.14);
-    --border-str: rgba(4,1,19,.3);
-    --text:       #0B0820;
-    --text-muted: #454A5C;
-    --text-dim:   #5A6070;
-    --accent:     var(--halo-500);
-    --shadow-2: 0 8px 24px -8px rgba(4,1,19,.18);
-    --shadow-3: 0 24px 60px -18px rgba(4,1,19,.3);
-    --glow:     0 0 40px -10px rgba(42,159,214,.35);
-    --chip-bg:  var(--void-900);
-    color-scheme: light;
-  }
-}
 
 /* ---------- 3. BASE ---------- */
 *,*::before,*::after { box-sizing: border-box; }
@@ -171,12 +153,6 @@ button { font: inherit; color: inherit; }
   color: transparent;
   /* Reserva de accesibilidad: si el clip falla, el texto sigue siendo visible */
   -webkit-text-fill-color: transparent;
-}
-@media (prefers-color-scheme: light) {
-  .chrome {
-    background: linear-gradient(177deg, #4A4F63 0%, #171036 30%, #6E7385 55%, #0B0820 78%, #454A5C 100%);
-    -webkit-background-clip: text; background-clip: text;
-  }
 }
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
   .chrome { color: var(--text); -webkit-text-fill-color: currentColor; background: none; }
@@ -322,7 +298,7 @@ button { font: inherit; color: inherit; }
 .drawer .btn { margin-top: var(--sp-4); }
 
 /* ---------- 7. HERO ---------- */
-.hero { position: relative; padding-top: calc(var(--nav-h) + var(--sp-9)); padding-bottom: var(--sp-10); overflow: hidden; }
+.hero { position: relative; padding-top: calc(var(--nav-h) + var(--sp-7)); padding-bottom: var(--sp-9); overflow: hidden; }
 .hero__bg {
   position: absolute; inset: 0; z-index: -2;
   background:
@@ -350,9 +326,11 @@ button { font: inherit; color: inherit; }
 .hero__actions .btn { flex: 1 1 13rem; }
 
 /* Escena 3D del hero */
-.scene { position: relative; display: grid; place-items: center; }
+.scene {
+  position: relative; display: grid; place-items: center;
+}
 .scene__stack {
-  position: relative; width: min(100%, 34rem); aspect-ratio: 800 / 527;
+  position: relative; width: min(100%, 42rem); aspect-ratio: 800 / 527;
 }
 .scene__card {
   /* Sin marco: la animación se apoya directamente sobre el fondo de la página.
@@ -366,16 +344,6 @@ button { font: inherit; color: inherit; }
      solo el cromado, sin rectángulo recortado contra el fondo de la página.
      Solo sirve sobre fondo oscuro: en claro borraría el logo. */
   mix-blend-mode: screen;
-}
-@media (prefers-color-scheme: light) {
-  /* Sobre fondo claro el cromado no se lee, así que la animación conserva su
-     propio fondo oscuro y se presenta como panel. Mismo criterio que el resto
-     de los soportes del logo en modo claro. */
-  .scene__card img {
-    mix-blend-mode: normal;
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-3);
-  }
 }
 
 /* ---------- 8. TARJETAS 3D ---------- */
@@ -421,12 +389,6 @@ button { font: inherit; color: inherit; }
 .card h3 { font-size: var(--fs-xl); }
 .card p { color: var(--text-muted); font-size: var(--fs-sm); }
 .card--feature { background: linear-gradient(155deg, var(--void-700), var(--void-800)); }
-@media (prefers-color-scheme: light) {
-  .card--feature { background: linear-gradient(155deg, var(--void-800), var(--void-700)); }
-  .card--feature h3, .card--feature .card__num { color: var(--chrome-100); }
-  .card--feature p { color: #B9BECC; }
-  .card--feature .tag { background: rgba(255,255,255,.1); color: #D8DCE6; border-color: rgba(255,255,255,.16); }
-}
 
 .tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .tag {
@@ -614,7 +576,11 @@ button { font: inherit; color: inherit; }
 @media (min-width: 60rem) {
   .nav__links, .nav__cta { display: inline-flex; }
   .nav__toggle, .drawer { display: none; }
-  .hero__inner { grid-template-columns: minmax(0,1.08fr) minmax(0,.92fr); }
+  .hero__inner { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  /* Se estira hasta el borde del contenedor y sube: el hero tiene más aire
+     arriba que abajo, así que centrada al milímetro se lee baja.
+     Solo en dos columnas: en una sola descentraría la animación. */
+  .scene { margin-right: calc(var(--gutter) * -1); transform: translateY(-2.5rem); }
   .cards { grid-template-columns: repeat(3, 1fr); }
   .card--feature { grid-column: span 3; }
   .plans { grid-template-columns: repeat(3, 1fr); }

@@ -32,10 +32,11 @@ que vive el isotipo plateado) y rampa cromada `#FFFFFF → #E3E5D7 → #6E7385`
 muestreada del archivo. Acento frío `#5CC8F5`, que es el brillo especular del
 metal. No inventar colores fuera de esa lógica.
 
-**El cromado necesita fondo oscuro para leerse.** Por eso el sitio es oscuro por
-defecto y, en `prefers-color-scheme: light`, los paneles que sostienen el logo
-(`.scene__card`, `.brand img`, `.footer__brand img`) se mantienen oscuros. Es
-deliberado: no "arreglarlo" aclarándolos.
+**El sitio es oscuro siempre. No hay modo claro.** `color-scheme: dark only` y
+cero bloques `prefers-color-scheme: light`. Se sacaron a pedido: el cromado no
+se lee sobre fondo claro, así que un modo claro obligaba a meter paneles oscuros
+por todos lados. Si alguien tiene el sistema en claro, la web se ve igual de
+oscura. **No reintroducir el modo claro.**
 
 **El texto cromado usa `.chrome`** (degradado + `background-clip: text`). Tiene
 fallback con `@supports` para navegadores sin soporte; no quitarlo.
@@ -64,12 +65,24 @@ y entrega el frame fijo.
 
 **Va sin marco, con `mix-blend-mode: screen`.** El fondo de la animación es
 negro; screen lo vuelve transparente y deja solo el cromado flotando sobre el
-fondo de la página. **Solo funciona en oscuro:** sobre fondo claro screen borra
-el logo por completo (se midió: rango dinámico 23 sobre 255). Por eso en
-`prefers-color-scheme: light` el blend vuelve a `normal` y la animación conserva
-su fondo oscuro como panel, con esquinas redondeadas y sombra.
+fondo de la página, sin ningún rectángulo. Depende de que el sitio sea oscuro:
+sobre fondo claro screen borra el logo entero (medido: rango dinámico 23 sobre
+255). Es otra razón para no reintroducir el modo claro.
 
-**El recorte es `(0, 122, 800, 649)` y está centrado en el logo.** El borde
+**El loop es continuo gracias a un fundido cruzado.** La rotación del original
+nunca vuelve a su posición inicial: el mejor empalme posible entre dos frames
+cualesquiera era 13.75 contra 3.19 de diferencia normal, o sea un salto visible.
+Se resuelve arrancando por la cola y fundiendo la cabeza encima a lo largo de
+K=12 frames, con lo que el primer y el último frame quedan consecutivos en el
+original. Resultado medido: salto de 6.02 contra 11.40 de diferencia media entre
+frames, o sea por debajo de una transición normal. **Ojo con la construcción:**
+mezclar la cabeza en la cola y después descartar la cola empeora el salto; hay
+que hacerlo al revés.
+
+**También se recortan los 16 frames iniciales**, que son la pausa: su diferencia
+frame a frame es de 0.04 a 0.56 contra una mediana de 3.19.
+
+**El recorte es `(0, 122, 800, 649)` sobre los frames 16-199, centrado en el logo.** El borde
 blanco del original arranca en la fila **754**, no 758, y el logo va de la fila
 151 a la 620: recortar hasta 758 dejaba 4 filas claras que se veían como una
 franja, y recortar sin centrar dejaba 27 px de margen arriba contra 131 abajo.
@@ -136,11 +149,15 @@ consola, y los hovers renderizando de verdad.
   `(0, 122, 800, 758)` saca las tres cosas: 42 de borde más 80 para la marca.
   Verificado midiendo el mínimo sobre los 200 frames, no a ojo sobre uno solo.
 - **El titular del hero está limitado por su columna, no por el viewport.**
-  `--fs-hero` topa en `4rem`: a 88 px la palabra "reconocimiento" medía 768 px
-  contra una columna de 607 y se montaba sobre la animación. Al agrandar la
-  animación hay que volver a medir esa palabra, no estimarla.
-- **El GIF pesaba 8,9 MB; el WebP animado pesa 544 KB.** 20 veces menos, con
-  100 frames a 66 ms en vez de 200 a 33. El original queda en
+  `--fs-hero` topa en `3.6rem`: la palabra "reconocimiento" es la que manda, y a
+  88 px medía 768 px contra una columna de 607. Hoy mide 503 contra 528. **Al
+  agrandar la animación hay que volver a medir esa palabra, no estimarla:** cada
+  vez que la animación crece, la columna del texto se achica.
+- **`.scene` lleva margen negativo y `translateY` solo en dos columnas** (≥60rem).
+  En una sola columna descentran la animación en mobile.
+- **El GIF pesaba 8,9 MB; el WebP animado pesa 584 KB.** 15 veces menos, con
+  86 frames a 77 ms en vez de 200 a 33 (la mitad de los frames del original son
+  duplicados exactos, así que tomar uno de cada dos no pierde nada). El original queda en
   `assets/img/source/kydos-spin-original.gif`.
 - **Los planes no llevan precio.** No fueron especificados. Los CTA van a contacto.
 - **El fondo es `#040113`,** tomado del archivo del logo, no elegido a ojo.
